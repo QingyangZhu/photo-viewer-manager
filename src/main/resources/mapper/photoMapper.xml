@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.photoviewermanager.dao.PhotoDao">
+    <resultMap type="com.photoviewermanager.entity.Photo" id="PhotoResult">
+        <result property="id" column="id"/>
+        <result property="photoPath" column="photo-path"/>
+        <result property="photoName" column="photo-name"/>
+        <result property="time" column="time"/>
+        <result property="address" column="address"/>
+    </resultMap>
+
+    <!--查询所有图片信息-->
+    <select id="findAllPhoto" resultMap="PhotoResult">
+        select * from photos
+    </select>
+
+    <!--根据图片名称查询图片信息-->
+    <select id="findPhotoByName" resultMap="PhotoResult">
+        select * from photos
+        where `photo-name` like concat(#{photoName}, '.%')
+    </select>
+
+    <!--根据时间查询图片信息-->
+    <select id="findPhotoByDate" resultMap="PhotoResult">
+        select * from photos
+        where time like concat(#{date},'%')
+    </select>
+
+    <!--根据地址查询图片信息-->
+    <select id="findPhotoByAddress" resultMap="PhotoResult">
+        select * from photos
+        where address = #{address}
+    </select>
+
+    <!--根据时间范围查询图片信息-->
+    <select id="findPhotoByTimeRange" resultMap="PhotoResult">
+        select * from photos
+        where time between #{startTime} and #{endTime}
+    </select>
+
+    <!--根据图片标签查询图片-->
+    <select id="findPhotoByTag" resultMap="PhotoResult">
+        select * from photos
+        where tag like concat('%',#{tag},'%')
+    </select>
+
+    <!--插入图片信息，包括图片名称、图片地址、图片时间、图片路径-->
+    <insert id="uploadPhoto" parameterType="com.photoviewermanager.entity.Photo">
+        insert into photos(`photo-name`,`photo-path`,time,address)
+        values(#{photoName},#{photoPath},#{time},#{address})
+    </insert>
+
+    <!--更新图片信息-->
+    <update id="updatePhoto" parameterType="com.photoviewermanager.entity.Photo">
+        update photos
+        set `photo-name` = #{photoName},`photo-path` = #{photoPath},time = #{time},address = #{address}
+        where `photo-name` = #{photoName}
+    </update>
+
+    <!--删除图片信息-->
+    <delete id="deletePhoto" parameterType="com.photoviewermanager.entity.Photo">
+        delete from photos
+        where `photo-name` = #{photoName}
+    </delete>
+
+</mapper>

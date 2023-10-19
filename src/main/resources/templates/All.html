@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title >全部图片</title>
+    <style>
+        /* 添加样式来创建网格布局 */
+        #imageList {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr); /* 5列 */
+            gap: 5px; /* 图片之间的间距 */
+            list-style: none; /* 移除列表样式 */
+            padding: 0;
+        }
+
+        #imageList li {
+            width: 250px; /* 20%列宽度，减去间距 */
+            height: 200px;
+            margin: 0;
+            padding: 0;
+        }
+
+        #imageList img {
+            max-width: 300px; /* 图片不超过父容器宽度 */
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+<h1 align="center">图片库</h1>
+<ul id="imageList"></ul>
+<script>
+    // 从后端获取数据
+    fetch('/allPhoto')
+        .then(response => response.json())
+        .then(data => {
+            const imageList = document.getElementById('imageList');
+            data.forEach(image => {
+                const li = document.createElement('li');
+                const img = document.createElement('img');
+                img.src = image.photoName;
+                img.alt = image.photoName;
+
+                // 添加点击事件
+                img.onclick = function() {
+                    showImageDetails(image);
+                };
+
+                li.appendChild(img);
+                imageList.appendChild(li);
+            });
+        });
+
+    // 创建一个函数来显示图片的详细信息
+    function showImageDetails(image) {
+        const detailsWindow = window.open('', '_blank', 'width=400,height=600'); // 新窗口的大小可以根据需要调整
+        detailsWindow.document.write('<h1>' + image.photoName + '</h1>');
+        const url = image.photoName
+        detailsWindow.document.write('<img src=' + url + ' alt="' + image.photoName + '" />');
+        detailsWindow.document.write('<p><strong>Name:</strong> ' + image.photoName + '</p >');
+        detailsWindow.document.write('<p><strong>Time:</strong> ' + image.time + '</p >');
+        detailsWindow.document.write('<p><strong>Address:</strong> ' + image.address + '</p >');
+        detailsWindow.document.write('<p><strong>Tag:</strong> ' + image.tag + '</p >');
+    }
+</script>
+</body>
+</html>

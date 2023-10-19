@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>图片搜索</title>
+    <style>
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+
+        #search-box {
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #image-name {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-right: 10px;
+            width: 300px;
+        }
+        #search-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #search-result {
+            margin: 20px 0;
+            display: none;
+        }
+
+        #result-image {
+            max-width: 800px;
+            max-height: 600px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>图片搜索</h1>
+    <div id="search-box">
+        <form id="search-form">
+            <input type="text" id="image-name" name="name" placeholder="输入图片名称">
+            <button type="submit" id="search-button">搜索</button>
+        </form>
+    </div>
+    <div id="search-result">
+        <img id="result-image" src="" alt="图片">
+        <p id="result-name">图片名称: </p>
+        <p id="result-time">图片时间: </p>
+        <p id="result-address">地址: </p>
+        <p id="result-tag">标签: </p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('search-form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        var imageName = document.getElementById('image-name').value;
+        if (imageName) {
+            // Use JavaScript fetch to make the request
+            fetch("/searchByName?name=" + imageName)
+                .then(response => response.json())
+                .then(data => {
+                    if (data) {
+                        document.getElementById('search-result').style.display = 'block';
+                        document.getElementById('result-image').src = data.photoName;
+                        document.getElementById('result-name').textContent = "图片名称: " + data.photoName;
+                        document.getElementById('result-time').textContent = "图片时间: " + data.time;
+                        document.getElementById('result-address').textContent = "地址: " + data.address;
+                        document.getElementById('result-tag').textContent = "标签: " + data.tag;
+                    } else {
+                        alert("没有找到图片");
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert("搜索出错");
+                });
+        } else {
+            alert("请输入图片名称");
+        }
+    });
+</script>
+</body>
+</html>

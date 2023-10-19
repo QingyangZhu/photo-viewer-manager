@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>根据地址查询图片</title>
+  <style>
+    .container {
+      text-align: center;
+      padding: 20px;
+    }
+
+    #search-box {
+      margin: 20px 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #search-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #search-result {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* 创建自适应的网格布局 */
+      grid-gap: 10px; /* 图片之间的间距 */
+      justify-items: center; /* 图片水平居中 */
+    }
+    #address-input {
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      margin-right: 10px;
+      width: 300px;
+    }
+
+    .photo-image {
+      max-width: 400px;
+      height: 250px; /* 保持纵横比 */
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <h1>根据地址查询图片</h1>
+  <div id="search-box">
+    <input type="text" id="address-input" name="address" placeholder="输入地址">
+    <button id="search-button">搜索</button>
+  </div>
+  <div id="search-result">
+    <!-- 图片信息显示区域 -->
+  </div>
+</div>
+
+<script>
+  document.getElementById('search-button').addEventListener('click', function() {
+    var selectedAddress = document.getElementById('address-input').value;
+
+    if (selectedAddress) {
+      fetch("/searchByAddress?address=" + selectedAddress)
+              .then(response => response.json())
+              .then(data => {
+                var searchResult = document.getElementById('search-result');
+                searchResult.innerHTML = '';
+
+                if (data.length > 0) {
+                  data.forEach(function(photo) {
+                    var photoInfo = document.createElement('div');
+                    photoInfo.className = 'photo-info';
+                    photoInfo.innerHTML = `
+                                    <img class="photo-image" src="${photo.photoName}" alt="图片">
+                                    <p>图片名称: ${photo.photoName}</p>
+                                    <p>图片时间: ${photo.time}</p>
+                                    <p>地址: ${photo.address}</p>
+                                    <p>标签: ${photo.tag}</p>
+                                `;
+                    searchResult.appendChild(photoInfo);
+                  });
+                } else {
+                  searchResult.innerHTML = '<p>没有找到图片</p>';
+                }
+              })
+              .catch(error => {
+                console.error('Error:', error);
+                alert("搜索出错");
+              });
+    } else {
+      alert("请输入地址");
+    }
+  });
+</script>
+</body>
+</html>
