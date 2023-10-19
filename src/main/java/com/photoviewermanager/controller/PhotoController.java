@@ -26,7 +26,7 @@ public class PhotoController {
 
 
 
-    @GetMapping("/")
+    @GetMapping("/all")
     public String allPhotos() {
         return "All";
     }
@@ -73,7 +73,19 @@ public class PhotoController {
 
     @GetMapping("/tag")
     public String searchByTagPage() {
-        return "/searchByTag";
+        return "/SearchByTag";
+    }
+
+    @GetMapping("/upload")
+    public String uploadForm() {
+        return "upload";
+    }
+
+
+
+    @GetMapping("/")
+    public String mainPage(){
+        return "mainPage";
     }
 }
 

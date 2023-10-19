@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ZQY图片浏览器</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    header {
+      background-color: #007bff;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+    }
+    nav {
+      background-color: #489836;
+      color: #4d7c40;
+      text-align: center;
+      padding: 10px;
+    }
+    nav ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    nav ul li {
+      display: inline;
+      margin-right: 10px;
+    }
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    .search-bar {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .search-input {
+      width: 60%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .search-button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .main-content {
+      margin-top: 20px;
+    }
+    .featured-images {
+      display: flex;
+      justify-content: space-between;
+    }
+    .featured-image {
+      width: 30%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .featured-image img {
+      max-width: 100%;
+    }
+    /* 新增样式 */
+    footer {
+      background-color: #f6f2f2;
+      color: #130e0e;
+      text-align: center;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+<header>
+  <h1>ZQY图片浏览器</h1>
+</header>
+<nav>
+  <ul>
+    <li><a href="/all">所有图片</a></li>
+    <li><a href="/name">按名称搜索</a></li>
+    <li><a href="/date">按日期查找</a></li>
+    <li><a href="/address">按地址查找</a></li>
+    <li><a href="/tag">按标签查找</a></li>
+    <li><a href="/upload">上传图片</a></li>
+
+  </ul>
+</nav>
+<div class="container">
+  <div class="search-bar">
+    <input type="text" class="search-input" placeholder="输入关键词">
+    <button class="search-button">搜索</button>
+  </div>
+  <div class="main-content">
+    <h2>推荐图片</h2>
+    <div class="featured-images">
+      <div class="featured-image">
+        <img src="sample1.jpg" alt="图片1">
+        <p>图片名称: 示例图片1</p>
+      </div>
+      <div class="featured-image">
+        <img src="sample2.jpg" alt="图片2">
+        <p>图片名称: 示例图片2</p>
+      </div>
+      <div class="featured-image">
+        <img src="sample3.jpg" alt="图片3">
+        <p>图片名称: 示例图片3</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- 页脚部分 -->
+<footer>
+  &copy; 2023 图片浏览器 - CQU
+  20214780 zqy
+</footer>
+</body>
+</html>
