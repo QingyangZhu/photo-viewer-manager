@@ -11,8 +11,8 @@
 	<groupId>com</groupId>
 	<artifactId>photo-viewer-manager</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>photo-viewer-maneger</name>
-	<description>photo-viewer-maneger</description>
+	<name>photo-viewer-manager</name>
+	<description>photo-viewer-manager</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -56,7 +56,6 @@
 			<version>3.0.2</version>
 		</dependency>
 
-		<!---->
 
 
 	</dependencies>
